@@ -33,7 +33,7 @@ public class MainActivity extends AppCompatActivity {
                 String d = "I'm sorry, I don't understand";
                 TextView botOut = (TextView)findViewById(R.id.botOut1);
                 botOut.setText(d);
-                count = 1;
+                count = 0;
             }
         } else if (i == 1){
             TextView userIn = (TextView)findViewById(R.id.userIn2);
@@ -53,22 +53,57 @@ public class MainActivity extends AppCompatActivity {
                 botOut.setText(d);
                 botOutput.add(d);
             } else if (c.contains("good") || c.contains("great")){
-
-            } else if (c.contains("bad")){
-                
+                TextView botOut = (TextView)findViewById(R.id.botOut2);
+                String f;
+                if (c.contains("great")){
+                    f = "great";
+                } else {
+                    f = "good";
+                } String d = "ShopBot: I'm glad you're feeling  " + f + "!\nWould you like to buy something?";
+                botOut.setText(d);
+                botOutput.add(d);
+            } else {
+                String d = "I'm sorry, I don't understand";
+                TextView botOut = (TextView)findViewById(R.id.botOut2);
+                botOut.setText(d);
+                count = 1;
             }
         } else if (i == 2){
+            TextView userIn = (TextView)findViewById(R.id.userIn3);
+            userIn.setText(c);
+            e.setText("");
+            c.toLowerCase();
+            userInput.add(c);
+            if (c.contains("shirt")){
 
+            } else if (c.contains("pants")){
+
+            } else if (c.contains("phone")){
+                //rant about how horrible the iPhone is, tell person to buy n5x or n6p
+            } else if (c.contains("laptop")){
+                //rant about how horrible the iPhone is, tell person to buy hp spectre x360
+            } else if (c.contains("console")){
+
+            } else if (c.contains("watch")){
+                //rant about how horrible apple watch is, tell person to buy moto 360
+            }
         } else if (i == 3){
-
+            TextView userIn = (TextView)findViewById(R.id.userIn4);
+            userIn.setText(c);
+            e.setText("");
+            c.toLowerCase();
+            userInput.add(c);
         } else if(i == 4){
-
+            TextView userIn = (TextView)findViewById(R.id.userIn5);
+            userIn.setText(c);
+            e.setText("");
+            c.toLowerCase();
+            userInput.add(c);
         } else {
             String a = e.getText().toString();
             count = 0;
             chat(a, count, e);
         }
-        i++;
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
