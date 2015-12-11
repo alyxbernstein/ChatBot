@@ -12,13 +12,40 @@
     tools:context="com.example.adam_000.chatbot.MainActivity"
     tools:showIn="@layout/activity_main">
 
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/input"
+        android:editable="false"
+        android:enabled="true"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/enter"
+        android:inputType="text"
+        android:singleLine="false" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter"
+        android:id="@+id/enter"
+        android:layout_alignTop="@+id/input"
+        android:layout_alignParentEnd="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="New Text"
-        android:id="@+id/textView"
-        android:layout_alignParentBottom="true"
+        android:id="@+id/userIn"
+        android:layout_below="@+id/enter"
         android:layout_alignParentStart="true"
-        android:layout_marginBottom="50dp"
-        android:textSize="25dp" />
+        android:textSize="25sp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/botOut"
+        android:textSize="25sp"
+        android:layout_below="@+id/userIn"
+        android:layout_alignParentStart="true" />
+
 </RelativeLayout>
