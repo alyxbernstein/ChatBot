@@ -10,7 +10,12 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-
+/*
+TODO: chrome custom tabs
+TODO: snarky responses
+TODO: RecyclerView
+TODO: responses
+*/
 public class MainActivity extends AppCompatActivity {
     int count = 0;
     ArrayList<String> userInput = new ArrayList<String>();
@@ -90,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         } else if (i == 3){
             TextView userIn = (TextView)findViewById(R.id.userIn4);
             userIn.setText(c);
-            e.setText("");
+                e.setText("");
             c.toLowerCase();
             userInput.add(c);
         } else if(i == 4){
