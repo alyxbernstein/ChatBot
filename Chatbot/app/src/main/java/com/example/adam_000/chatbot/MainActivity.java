@@ -9,28 +9,79 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity {
+import java.util.ArrayList;
 
+public class MainActivity extends AppCompatActivity {
+    int count = 0;
+    ArrayList<String> userInput = new ArrayList<String>();
+    ArrayList<String> botOutput = new ArrayList<String>();
+    public void chat(String in, int i, EditText e){
+        String b = "User: ";
+        String c = in + b;
+        if (i == 0){
+            TextView userIn = (TextView)findViewById(R.id.userIn1);
+            userIn.setText(c);
+            e.setText("");
+            c.toLowerCase();
+            userInput.add(c);
+            if (c.contains("hi") || c.contains("hello") || c.contains("hey")){
+                TextView botOut = (TextView)findViewById(R.id.botOut1);
+                String d = "ShopBot: Hello, how are you?";
+                botOut.setText(d);
+                botOutput.add(d);
+            } else {
+                String d = "I'm sorry, I don't understand";
+                TextView botOut = (TextView)findViewById(R.id.botOut1);
+                botOut.setText(d);
+                count = 1;
+            }
+        } else if (i == 1){
+            TextView userIn = (TextView)findViewById(R.id.userIn2);
+            userIn.setText(c);
+            e.setText("");
+            c.toLowerCase();
+            userInput.add(c);
+            if (c.contains("fine") || c.contains("ok")){
+                TextView botOut = (TextView)findViewById(R.id.botOut2);
+                String f;
+                if (c.contains("fine")){
+                    f = "fine";
+                } else {
+                    f = "okay";
+                }
+                String d = "ShopBot: Just " + f + "?\nWould you like to buy something?";
+                botOut.setText(d);
+                botOutput.add(d);
+            } else if (c.contains("good") || c.contains("great")){
+
+            } else if (c.contains("bad")){
+                
+            }
+        } else if (i == 2){
+
+        } else if (i == 3){
+
+        } else if(i == 4){
+
+        } else {
+            String a = e.getText().toString();
+            count = 0;
+            chat(a, count, e);
+        }
+        i++;
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        final EditText input = (EditText)findViewById(R.id.input);
         Button enter = (Button)findViewById(R.id.enter);
         enter.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                TextView userIn = (TextView)findViewById(R.id.userIn);
+                EditText input = (EditText)findViewById(R.id.input);
                 String a = input.getText().toString();
-                String b = "User: ";
-                String c = a + b;
-                userIn.setText(c);
-                c.toLowerCase();
-                if (c.contains("hi") || c.contains("hello") || c.contains("hey")){
-                    TextView botOut = (TextView)findViewById(R.id.botOut);
-                    String d = "ShopBot: Hello, how are you?";
-                    botOut.setText(d);
-                }
+                chat(a, count, input);
+                count++;
             }
         });
     }
