@@ -1,6 +1,7 @@
 package com.example.adam_000.chatbot;
 
 import android.content.ComponentName;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.customtabs.CustomTabsClient;
@@ -20,6 +21,7 @@ import org.w3c.dom.Text;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 /*
 TODO: chrome custom tabs
@@ -38,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
     CustomTabsIntent customTabsIntent;
     String URL;
     String site;
+    Color toolbarColor;
     ArrayList<String> userInput = new ArrayList<String>();
     ArrayList<String> botOutput = new ArrayList<String>();
     public String prepURL(ArrayList<String> search){
@@ -51,8 +54,12 @@ public class MainActivity extends AppCompatActivity {
     public void goToWebpage(String temp){
         //go to webpage -
         URL = temp;
+        Random random = new Random();
+        int r = random.nextInt(255);
+        int g = random.nextInt(255);
+        int b = random.nextInt(255);
         customTabsIntent = new CustomTabsIntent.Builder(mCustomTabsSession)
-                .setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary))
+                .setToolbarColor(Color.rgb(r, g, b))
                 .setShowTitle(true)
                 .build();
         customTabsIntent.launchUrl(MainActivity.this, Uri.parse(URL));
