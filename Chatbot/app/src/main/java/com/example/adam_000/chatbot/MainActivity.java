@@ -4,11 +4,11 @@ import android.content.ComponentName;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
 import android.support.customtabs.CustomTabsSession;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -16,10 +16,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -37,12 +33,12 @@ public class MainActivity extends AppCompatActivity {
     CustomTabsServiceConnection mCustomTabsServiceConnection;
     CustomTabsClient mClient;
     CustomTabsSession mCustomTabsSession;
-    CustomTabsIntent customTabsIntent;
+
     String URL;
     String site;
-    Color toolbarColor;
     ArrayList<String> userInput = new ArrayList<String>();
     ArrayList<String> botOutput = new ArrayList<String>();
+
     public String prepURL(ArrayList<String> search){
         String temp = "https://google.com/search?espv=2&q=site%3A" + site;
         for (String keyword : search){
@@ -58,13 +54,14 @@ public class MainActivity extends AppCompatActivity {
         int r = random.nextInt(255);
         int g = random.nextInt(255);
         int b = random.nextInt(255);
-        customTabsIntent = new CustomTabsIntent.Builder(mCustomTabsSession)
-                .setToolbarColor(Color.rgb(r, g, b))
+        CustomTabsIntent customTabsIntent = new CustomTabsIntent.Builder(mCustomTabsSession)
+                .setToolbarColor(Color.rgb(r,g,b))
                 .setShowTitle(true)
                 .build();
         customTabsIntent.launchUrl(MainActivity.this, Uri.parse(URL));
 
     }
+
     public void chat(String in, int i, EditText e){
         String b = "User: ";
         String c = in + b;
@@ -179,6 +176,7 @@ public class MainActivity extends AppCompatActivity {
         }
 
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
