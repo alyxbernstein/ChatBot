@@ -35,7 +35,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/userIn"
+        android:id="@+id/userIn1"
         android:layout_below="@+id/enter"
         android:layout_alignParentStart="true"
         android:textSize="25sp" />
@@ -43,9 +43,73 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/botOut"
+        android:id="@+id/botOut1"
         android:textSize="25sp"
-        android:layout_below="@+id/userIn"
+        android:layout_below="@+id/userIn1"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userIn2"
+        android:textSize="25sp"
+        android:layout_below="@+id/botOut1"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/botOut2"
+        android:textSize="25sp"
+        android:layout_below="@+id/userIn2"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userIn3"
+        android:textSize="25sp"
+        android:layout_below="@+id/botOut2"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/botOut3"
+        android:textSize="25sp"
+        android:layout_below="@+id/userIn3"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userIn4"
+        android:textSize="25sp"
+        android:layout_below="@+id/botOut3"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/botOut4"
+        android:textSize="25sp"
+        android:layout_below="@+id/userIn4"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/userIn5"
+        android:textSize="25sp"
+        android:layout_below="@+id/botOut4"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/botOut5"
+        android:textSize="25sp"
+        android:layout_below="@+id/userIn5"
         android:layout_alignParentStart="true" />
 
 </RelativeLayout>
