@@ -4,7 +4,6 @@ import android.content.ComponentName;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.speech.tts.TextToSpeech;
 import android.support.customtabs.CustomTabsClient;
 import android.support.customtabs.CustomTabsIntent;
 import android.support.customtabs.CustomTabsServiceConnection;
@@ -27,31 +26,29 @@ TODO: responses
 */
 public class MainActivity extends AppCompatActivity {
     private static final String CUSTOM_TAB_PACKAGE_NAME = "com.android.chrome";
-    int count = 0;
-    int buy = 1;
-    TextView userIn;
-    TextView botOut;
-    CustomTabsServiceConnection mCustomTabsServiceConnection;
-    CustomTabsClient mClient;
-    CustomTabsSession mCustomTabsSession;
+    int conversationState = 0;
+    private TextView userIn;
+    private TextView botOut;
+    private EditText input = (EditText)findViewById(R.id.input);
+    private CustomTabsServiceConnection mCustomTabsServiceConnection;
+    private CustomTabsClient mClient;
+    private CustomTabsSession mCustomTabsSession;
 
-    String URL;
-    String site;
-    ArrayList<String> userInput = new ArrayList<String>();
-    ArrayList<String> botOutput = new ArrayList<String>();
-    ArrayList<String> keywords = new ArrayList<String>();
+    private String site;
+    private ArrayList<String> userInput = new ArrayList<String>();
+    private ArrayList<String> botOutput = new ArrayList<String>();
 
-    public String prepURL(ArrayList<String> search){
-        String temp = "https://google.com/search?espv=2&q=site%3A" + site;
+    //returns URL
+    private String prepURL(ArrayList<String> search){
+        String URL = "https://google.com/search?espv=2&q=site%3A" + site;
         for (String keyword : search){
             URL += "+" + keyword;
         }
-        return temp;
+        return URL;
     }
 
-    public void goToWebpage(String temp){
+    private void goToWebpage(String URL){
         //go to webpage -
-        URL = temp;
         Random random = new Random();
         int r = random.nextInt(255);
         int g = random.nextInt(255);
@@ -64,23 +61,136 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    public void chat(String in, int i, EditText e){
+    private void buyPhone(int i, Smartphone phone){
+        switch (i){
+            case 1:
+                botOut = (TextView)findViewById(R.id.botOut3);
+                String d = "Would you like an unlocked or locked phone?";
+                botOut.setText(d);
+                i++;
+                buyPhone(i, phone);
+            case 2:
+                String in = input.getText().toString();
+                String b = "User: ";
+                String userInputText = b + in;
+                userIn = (TextView)findViewById(R.id.userIn4);
+                userIn.setText(userInputText);
+                input.setText("");
+                userInputText.toLowerCase();
+                userInput.add(userInputText);
+                if (userInputText.contains("unlocked")){
+                    phone.setUnlocked(true);
+                    i++;
+                    buyPhone(i, phone);
+                } else if (userInputText.contains("carrier")){
+                    phone.setUnlocked(false);
+                    i++;
+                    buyPhone(i, phone);
+                } else {
+                    String done = "I'm sorry, I don't understand";
+                    botOut = (TextView)findViewById(R.id.botOut4);
+                    botOut.setText(done);
+                    buyPhone(i, phone);
+                }
+            case 3:
+                botOut = (TextView)findViewById(R.id.botOut4);
+                d = "What brand would you like?";
+                botOut.setText(d);
+                in = input.getText().toString();
+                b = "User: ";
+                userInputText = b + in;
+                userIn = (TextView)findViewById(R.id.userIn5);
+                userIn.setText(userInputText);
+                input.setText("");
+                userInputText.toLowerCase();
+                userInput.add(userInputText);
+                if (userInputText.contains("apple")){
+                    botOut = (TextView)findViewById(R.id.botOut5);
+                    d = "Which model do you want, 5s, 6 or 6s?";
+                    botOut.setText(d);
+                    in = input.getText().toString();
+                    b = "User: ";
+                    userInputText = b + in;
+                    userIn = (TextView)findViewById(R.id.userIn1);
+                    userIn.setText(userInputText);
+                    input.setText("");
+                    userInputText.toLowerCase();
+                    userInput.add(userInputText);
+                    if (userInputText.contains("6s")){
+                        goToWebpage("http://www.apple.com/shop/buy-iphone/iphone6s");
+                    } else if (userInputText.contains("6")){
+                        goToWebpage("http://www.apple.com/shop/buy-iphone/iphone6");
+                    } else if (userInputText.contains("5s")){
+                        goToWebpage("http://www.apple.com/shop/buy-iphone/iphone5s");
+                    } else {
+                        String done = "I'm sorry, I don't understand";
+                        botOut = (TextView)findViewById(R.id.botOut1);
+                        botOut.setText(done);
+                        buyPhone(i, phone);
+                    }
+                } else if (userInputText.contains("samsung")){
+                    phone.setBrand("samsung");
+                    i++;
+                    buyPhone(i, phone);
+                } else if (userInputText.contains("lg")){
+                    phone.setBrand("lg");
+                    i++;
+                    buyPhone(i, phone);
+                } else if (userInputText.contains("google")){
+                    botOut = (TextView)findViewById(R.id.botOut5);
+                    d = "Which model do you want, 6p or 5x?";
+                    botOut.setText(d);
+                    in = input.getText().toString();
+                    b = "User: ";
+                    userInputText = b + in;
+                    userIn = (TextView)findViewById(R.id.userIn1);
+                    userIn.setText(userInputText);
+                    input.setText("");
+                    userInputText.toLowerCase();
+                    userInput.add(userInputText);
+                    if (userInputText.contains("6p")){
+                        goToWebpage("https://store.google.com/product/nexus_6p");
+                    } else if (userInputText.contains("5x")){
+                        goToWebpage("https://store.google.com/product/nexus_5x");
+                    } else {
+                        String done = "I'm sorry, I don't understand";
+                        botOut = (TextView)findViewById(R.id.botOut1);
+                        botOut.setText(done);
+                        buyPhone(i, phone);
+                    }
+                } else {
+                    String done = "I'm sorry, I don't understand";
+                    botOut = (TextView)findViewById(R.id.botOut5);
+                    botOut.setText(done);
+                    buyPhone(i, phone);
+                }
+
+            case 4:
+
+        }
+
+    }
+    private void buyLaptop() {
+
+    }
+    public void chat(int i){
+        String in = input.getText().toString();
         String b = "User: ";
-        String c = b + in;
+        String userInputText = b + in;
 
         switch (i){
             case 0:
                 userIn = (TextView)findViewById(R.id.userIn1);
-                userIn.setText(c);
-                e.setText("");
-                c.toLowerCase();
-                userInput.add(c);
-                if (c.contains("hi") || c.contains("hello") || c.contains("hey")){
+                userIn.setText(userInputText);
+                input.setText("");
+                userInputText.toLowerCase();
+                userInput.add(userInputText);
+                if (userInputText.contains("hi") || userInputText.contains("hello") || userInputText.contains("hey")){
                     botOut = (TextView)findViewById(R.id.botOut1);
                     String d = "ShopBot: Hello, how are you?";
                     botOut.setText(d);
                     botOutput.add(d);
-                    count++;
+                    conversationState++;
                     break;
                 } else {
                     String d = "I'm sorry, I don't understand";
@@ -90,14 +200,14 @@ public class MainActivity extends AppCompatActivity {
                 }
             case 1:
                 userIn = (TextView)findViewById(R.id.userIn2);
-                userIn.setText(c);
-                e.setText("");
-                c.toLowerCase();
-                userInput.add(c);
-                if (c.contains("fine") || c.contains("ok")){
+                userIn.setText(userInputText);
+                input.setText("");
+                userInputText.toLowerCase();
+                userInput.add(userInputText);
+                if (userInputText.contains("fine") || userInputText.contains("ok")){
                     TextView botOut = (TextView)findViewById(R.id.botOut2);
                     String f;
-                    if (c.contains("fine")){
+                    if (userInputText.contains("fine")){
                         f = "fine";
                     } else {
                         f = "okay";
@@ -105,19 +215,19 @@ public class MainActivity extends AppCompatActivity {
                     String d = "ShopBot: Just " + f + "?\nWould you like to buy something?";
                     botOut.setText(d);
                     botOutput.add(d);
-                    count++;
+                    conversationState++;
                     break;
-                } else if (c.contains("good") || c.contains("great")){
+                } else if (userInputText.contains("good") || userInputText.contains("great")){
                     botOut = (TextView)findViewById(R.id.botOut2);
                     String f;
-                    if (c.contains("great")){
+                    if (userInputText.contains("great")){
                         f = "great";
                     } else {
                         f = "good";
                     } String d = "ShopBot: I'm glad you're feeling  " + f + "!\nWould you like to buy something?";
                     botOut.setText(d);
                     botOutput.add(d);
-                    count++;
+                    conversationState++;
                     break;
                 } else {
                     String d = "I'm sorry, I don't understand";
@@ -127,54 +237,15 @@ public class MainActivity extends AppCompatActivity {
                 }
             case 2:
                 userIn = (TextView)findViewById(R.id.userIn3);
-                userIn.setText(c);
-                e.setText("");
-                c.toLowerCase();
-                userInput.add(c);
-                if (c.contains("shirt")){
-                    count = 4;
-                    botOut = (TextView)findViewById(R.id.botOut3);
-                    String d = "What color?";
-                    botOut.setText(d);
-                    botOutput.add(d);
-                    keywords.add("shirt");
-                    break;
-                } else if (c.contains("pants")){
-                    count = 4;
-                    botOut = (TextView)findViewById(R.id.botOut3);
-                    String d = "What color?";
-                    botOut.setText(d);
-                    botOutput.add(d);
-                    keywords.add("pants");
-                    break;
-
-                } else if (c.contains("phone")){
-                    //rant about how horrible the iPhone is, tell person to buy n5x or n6p
-                    botOut = (TextView)findViewById(R.id.botOut3);
-                    String d = "I'm going to assume you want an iPhone. I, however, was programmed in Android. Therefore, I must compel you to purchase a Nexus Device. Would you like a nexus 6p or 5x?";
-                    botOut.setText(d);
-                    botOutput.add(d);
-                    userIn = (TextView)findViewById(R.id.userIn4);
-                    userIn.setText(c);
-                    e.setText("");
-                    c.toLowerCase();
-                    userInput.add(c);
-                    if (c.contains("6p")){
-                        String newURL = "https://store.google.com/product/nexus_6p";
-                        goToWebpage(newURL);
-                        break;
-                    } else if (c.contains("5x")){
-                        String newURL = "https://store.google.com/product/nexus_5x";
-                        goToWebpage(newURL);
-                        break;
-                    } else {
-                        botOut = (TextView)findViewById(R.id.botOut4);
-                        botOut.setText(d);
-                        break;
-                    }
-                } else if (c.contains("laptop")){
-                    //rant about how horrible the iPhone is, tell person to buy hp spectre x360
-                    site = "bestbuy.com";
+                userIn.setText(userInputText);
+                input.setText("");
+                userInputText.toLowerCase();
+                userInput.add(userInputText);
+                if (userInputText.contains("phone")){
+                    Smartphone phone = new Smartphone();
+                    buyPhone(1, phone);
+                } else if (userInputText.contains("laptop")){
+                    buyLaptop();
                 } else {
                     String d = "I'm sorry, I don't understand";
                     botOut = (TextView)findViewById(R.id.botOut3);
@@ -182,29 +253,10 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 }
 
-            case 4:
-                userIn = (TextView)findViewById(R.id.userIn5);
-                userIn.setText(c);
-                e.setText("");
-                c.toLowerCase();
-                userInput.add(c);
-                String[] colors = new String[]{"red", "blue", "green", "white", "yellow", "black", "orange", "pink", "brown"};
-                for (String color : colors){
-                    if (c.contains(color)){
-                        keywords.add(0, color);
-                        switch (buy){
-                            case 1:
 
-                        }
-                    } else {
-                        String d = "I'm sorry, I don't understand";
-                        botOut = (TextView)findViewById(R.id.botOut4);
-                        botOut.setText(d);
-                        break;
-                    }
-                    }
-                }
         }
+    }
+
 
 
 
@@ -230,9 +282,8 @@ public class MainActivity extends AppCompatActivity {
         Button enter = (Button)findViewById(R.id.enter);
         enter.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                EditText input = (EditText)findViewById(R.id.input);
                 String a = input.getText().toString();
-                chat(a, count, input);
+                chat(conversationState);
             }
         });
     }
