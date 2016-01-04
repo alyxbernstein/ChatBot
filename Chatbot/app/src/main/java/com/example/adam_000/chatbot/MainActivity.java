@@ -166,7 +166,7 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             case 4:
-
+                //get screen size, phablet or 5"
         }
 
     }
