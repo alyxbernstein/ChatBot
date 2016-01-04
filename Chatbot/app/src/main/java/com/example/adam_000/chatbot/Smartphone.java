@@ -8,54 +8,52 @@ public class Smartphone {
     private String carrier;
     private String brand;
     private String model;
-    private String color;
     private boolean unlocked;
     private String website;
+    private int screenSize;
 
     public Smartphone(){
 
     }
 
     public int getStorage(){
-        return storage;
+        return this.storage;
     }
     public void setStorage(int s){
-        storage = s;
+        this.storage = s;
     }
     public String getCarrier(){
-        return carrier;
+        return this.carrier;
     }
     public void setCarrier(String c){
-        carrier = c;
+        this.carrier = c;
     }
     public String getBrand(){
-        return brand;
+        return this.brand;
     }
     public void setBrand(String b){
-        brand = b;
+        this.brand = b;
     }
     public String getModel(){
-        return model;
+        return this.model;
     }
     public void setModel(String m){
-        model = m;
-    }
-    public String getColor() {
-        return color;
-    }
-    public void setColor(String c){
-        color = c;
+        this.model = m;
     }
     public boolean isUnlocked(){
-        return unlocked;
+        return this.unlocked;
     }
     public void setUnlocked(boolean b){
-        unlocked = b;
+        this.unlocked = b;
     }
     public String getWebsite(){
-        return website;
+        return this.website;
     }
     public void setWebsite(String w){
-        website = w;
+        this.website = w;
+    }
+    public int getScreenSize() { return this.screenSize; }
+    public void setScreenSize(int s) {
+        this.screenSize = s;
     }
 }
