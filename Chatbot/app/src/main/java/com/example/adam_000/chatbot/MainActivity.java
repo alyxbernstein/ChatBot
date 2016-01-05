@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity {
     private String site;
     private ArrayList<String> userInput = new ArrayList<String>();
     private ArrayList<String> botOutput = new ArrayList<String>();
+    private ArrayList<String> keywords = new ArrayList<String>();
 
     //returns URL
     private String prepURL(ArrayList<String> search){
@@ -130,10 +131,12 @@ public class MainActivity extends AppCompatActivity {
                     }
                 } else if (userInputText.contains("samsung")){
                     phone.setBrand("samsung");
+                    keywords.add("samsung");
                     i++;
                     buyPhone(i, phone);
                 } else if (userInputText.contains("lg")){
                     phone.setBrand("lg");
+                    keywords.add("lg");
                     i++;
                     buyPhone(i, phone);
                 } else if (userInputText.contains("google")){
@@ -166,7 +169,43 @@ public class MainActivity extends AppCompatActivity {
                 }
 
             case 4:
-                //get screen size, phablet or 5"
+                botOut = (TextView)findViewById(R.id.botOut5);
+                d = "What screensize would youe like, 5 inch or phablet?";
+                botOut.setText(d);
+                in = input.getText().toString();
+                b = "User: ";
+                userInputText = b + in;
+                userIn = (TextView)findViewById(R.id.userIn1);
+                userIn.setText(userInputText);
+                input.setText("");
+                userInputText.toLowerCase();
+                userInput.add(userInputText);
+                if (userInputText.contains("5")){
+                    phone.setScreenSize(5);
+                    if (phone.getBrand() == "lg"){
+                        phone.setModel("g");
+                    } else if (phone.getBrand() == "samsung"){
+                        phone.setModel("galaxy+s");
+                    }
+                } else if (userInputText.contains("phablet")){
+                    phone.setScreenSize(6);
+                    if (phone.getBrand() == "lg"){
+                        phone.setModel("v10");
+                    } else if (phone.getBrand() == "samsung"){
+                        phone.setModel("note");
+                    }
+                    botOut = (TextView)findViewById(R.id.botOut1);
+                }
+                d = "Which model do you want, 5s, 6 or 6s?";
+                botOut.setText(d);
+                in = input.getText().toString();
+                b = "User: ";
+                userInputText = b + in;
+                userIn = (TextView)findViewById(R.id.userIn1);
+                userIn.setText(userInputText);
+                input.setText("");
+                userInputText.toLowerCase();
+                userInput.add(userInputText);
         }
 
     }
