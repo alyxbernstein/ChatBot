@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     int conversationState = 0;
     private TextView userIn;
     private TextView botOut;
-    private EditText input = (EditText)findViewById(R.id.input);
+    private EditText input;
     private CustomTabsServiceConnection mCustomTabsServiceConnection;
     private CustomTabsClient mClient;
     private CustomTabsSession mCustomTabsSession;
@@ -77,7 +77,7 @@ public class MainActivity extends AppCompatActivity {
                 userIn = (TextView)findViewById(R.id.userIn4);
                 userIn.setText(userInputText);
                 input.setText("");
-                userInputText.toLowerCase();
+                userInputText = userInputText.toLowerCase();
                 userInput.add(userInputText);
                 if (userInputText.contains("unlocked")){
                     phone.setUnlocked(true);
@@ -103,7 +103,7 @@ public class MainActivity extends AppCompatActivity {
                 userIn = (TextView)findViewById(R.id.userIn5);
                 userIn.setText(userInputText);
                 input.setText("");
-                userInputText.toLowerCase();
+                userInputText = userInputText.toLowerCase();
                 userInput.add(userInputText);
                 if (userInputText.contains("apple")){
                     botOut = (TextView)findViewById(R.id.botOut5);
@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     userIn = (TextView)findViewById(R.id.userIn1);
                     userIn.setText(userInputText);
                     input.setText("");
-                    userInputText.toLowerCase();
+                    userInputText = userInputText.toLowerCase();
                     userInput.add(userInputText);
                     if (userInputText.contains("6s")){
                         goToWebpage("http://www.apple.com/shop/buy-iphone/iphone6s");
@@ -149,7 +149,7 @@ public class MainActivity extends AppCompatActivity {
                     userIn = (TextView)findViewById(R.id.userIn1);
                     userIn.setText(userInputText);
                     input.setText("");
-                    userInputText.toLowerCase();
+                    userInputText = userInputText.toLowerCase();
                     userInput.add(userInputText);
                     if (userInputText.contains("6p")){
                         goToWebpage("https://store.google.com/product/nexus_6p");
@@ -222,7 +222,7 @@ public class MainActivity extends AppCompatActivity {
                 userIn = (TextView)findViewById(R.id.userIn1);
                 userIn.setText(userInputText);
                 input.setText("");
-                userInputText.toLowerCase();
+                userInputText = userInputText.toLowerCase();
                 userInput.add(userInputText);
                 if (userInputText.contains("hi") || userInputText.contains("hello") || userInputText.contains("hey")){
                     botOut = (TextView)findViewById(R.id.botOut1);
@@ -230,18 +230,17 @@ public class MainActivity extends AppCompatActivity {
                     botOut.setText(d);
                     botOutput.add(d);
                     conversationState++;
-                    break;
                 } else {
                     String d = "I'm sorry, I don't understand";
                     botOut = (TextView) findViewById(R.id.botOut1);
                     botOut.setText(d);
-                    break;
                 }
+                break;
             case 1:
                 userIn = (TextView)findViewById(R.id.userIn2);
                 userIn.setText(userInputText);
                 input.setText("");
-                userInputText.toLowerCase();
+                userInputText = userInputText.toLowerCase();
                 userInput.add(userInputText);
                 if (userInputText.contains("fine") || userInputText.contains("ok")){
                     TextView botOut = (TextView)findViewById(R.id.botOut2);
@@ -255,7 +254,6 @@ public class MainActivity extends AppCompatActivity {
                     botOut.setText(d);
                     botOutput.add(d);
                     conversationState++;
-                    break;
                 } else if (userInputText.contains("good") || userInputText.contains("great")){
                     botOut = (TextView)findViewById(R.id.botOut2);
                     String f;
@@ -263,22 +261,21 @@ public class MainActivity extends AppCompatActivity {
                         f = "great";
                     } else {
                         f = "good";
-                    } String d = "ShopBot: I'm glad you're feeling  " + f + "!\nWould you like to buy something?";
+                    } String d = "ShopBot: I'm glad you're feeling  " + f + "!\nWould you like to buy a phone or a laptop?";
                     botOut.setText(d);
                     botOutput.add(d);
                     conversationState++;
-                    break;
                 } else {
                     String d = "I'm sorry, I don't understand";
                     botOut = (TextView)findViewById(R.id.botOut2);
                     botOut.setText(d);
-                    break;
                 }
+                break;
             case 2:
                 userIn = (TextView)findViewById(R.id.userIn3);
                 userIn.setText(userInputText);
                 input.setText("");
-                userInputText.toLowerCase();
+                userInputText = userInputText.toLowerCase();
                 userInput.add(userInputText);
                 if (userInputText.contains("phone")){
                     Smartphone phone = new Smartphone();
@@ -289,20 +286,18 @@ public class MainActivity extends AppCompatActivity {
                     String d = "I'm sorry, I don't understand";
                     botOut = (TextView)findViewById(R.id.botOut3);
                     botOut.setText(d);
-                    break;
                 }
+                break;
 
 
         }
     }
 
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        input = (EditText)findViewById(R.id.input);
         mCustomTabsServiceConnection = new CustomTabsServiceConnection() {
             @Override
             public void onCustomTabsServiceConnected(ComponentName componentName, CustomTabsClient customTabsClient) {
@@ -321,7 +316,6 @@ public class MainActivity extends AppCompatActivity {
         Button enter = (Button)findViewById(R.id.enter);
         enter.setOnClickListener(new View.OnClickListener(){
             public void onClick(View v){
-                String a = input.getText().toString();
                 chat(conversationState);
             }
         });
